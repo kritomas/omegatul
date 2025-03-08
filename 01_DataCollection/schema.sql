@@ -11,7 +11,9 @@ create table Vehicle
 	line_name text,
 	timestamp text,
 	position_state text,
-	vehicle_type text
+	vehicle_type text,
+	last_stop_id text,
+	next_stop_id text
 );
 
 create table Controller
