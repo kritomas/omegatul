@@ -12,3 +12,5 @@ if not "token" in conf["api"]:
 
 if not isinstance(conf["api"]["token"], str):
 	raise ValueError("Config entry api.token must be a string")
+
+conf["db"] = {"db_path": "./data.db", "schema_path": "schema.sql"} # TODO

@@ -1,9 +1,10 @@
 import requests
-import config
+import dbctl, config
 
 class Collector:
 	def __init__(self):
 		self.headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Omegatul"}
+		self.dbctl = dbctl.DBController()
 
 	def start(self):
 		try:
