@@ -41,6 +41,12 @@ class DBController:
 	def _reset(self):
 		DBContext._reset()
 
+	def countRecords(self):
+		with DBContext() as cursor:
+			cursor.execute("select count(*) from Vehicle;")
+			res = cursor.fetchone()
+			return res[0]
+
 	def addVehicle(self, gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type):
 		with DBContext() as cursor:
 			cursor.execute("insert into Vehicle (gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type) values (?, ?, ?, ?, ?, ?, ?)", (gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type))
