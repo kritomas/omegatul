@@ -3,6 +3,17 @@ PRAGMA journal_mode = WAL;
 
 begin transaction;
 
+create table Vehicle
+(
+	gtfs_trip_id text,
+	longitude float,
+	latitude float,
+	line_name text,
+	timestamp text,
+	position_state text,
+	vehicle_type text
+);
+
 create table Controller
 (
 	id integer primary key,
