@@ -23,7 +23,9 @@ class Collector:
 				elif error.response.status_code == 404:
 					retrying = False
 				else:
-					raise
+					#raise
+					retrying = False
+					print(error)
 
 	def start(self):
 		while (self.dbctl.countRecords() < config.conf["db"]["total_records"]):
@@ -42,7 +44,9 @@ class Collector:
 					if error.response.status_code == 429: # 401=Bad Token, 429=Rate Limit
 						time.sleep(1)
 					else:
-						raise
+						#raise
+						retrying = False
+						print(error)
 			total_time = time.time() - start_time
 			delay = max(config.conf["api"]["refresh_interval"] - total_time, 0)
 			time.sleep(delay)
