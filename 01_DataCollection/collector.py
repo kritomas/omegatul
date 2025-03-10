@@ -26,6 +26,10 @@ class Collector:
 					#raise
 					retrying = False
 					print(error)
+			except Exception as error:
+				#raise
+				retrying = False
+				print(error)
 
 	def start(self):
 		while (self.dbctl.countRecords() < config.conf["db"]["total_records"]):
@@ -47,6 +51,10 @@ class Collector:
 						#raise
 						retrying = False
 						print(error)
+				except Exception as error:
+					#raise
+					retrying = False
+					print(error)
 			total_time = time.time() - start_time
 			delay = max(config.conf["api"]["refresh_interval"] - total_time, 0)
 			time.sleep(delay)
