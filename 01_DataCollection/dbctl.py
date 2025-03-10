@@ -47,6 +47,6 @@ class DBController:
 			res = cursor.fetchone()
 			return res[0]
 
-	def addVehicle(self, gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type, last_stop_id, next_stop_id):
+	def addVehicle(self, gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type, last_stop_id, next_stop_id, direction):
 		with DBContext() as cursor:
-			cursor.execute("insert into Vehicle (gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type, last_stop_id, next_stop_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type, last_stop_id, next_stop_id))
+			cursor.execute("insert into Vehicle (gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type, last_stop_id, next_stop_id, direction) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (gtfs_trip_id, longitude, latitude, line_name, timestamp, position_state, vehicle_type, last_stop_id, next_stop_id, direction))

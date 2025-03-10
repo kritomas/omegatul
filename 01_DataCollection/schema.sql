@@ -13,7 +13,8 @@ create table Vehicle
 	position_state text,
 	vehicle_type text,
 	last_stop_id text,
-	next_stop_id text
+	next_stop_id text,
+	direction text
 );
 
 create table Controller
