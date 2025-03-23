@@ -22,11 +22,14 @@ if not isinstance(conf["api"]["refresh_interval"], numbers.Number):
 	raise ValueError("Config entry api.refresh_interval must be a number")
 if conf["api"]["refresh_interval"] < 0:
 	raise ValueError("Config entry api.refresh_interval must not be negative")
+if "lines" in conf["api"]:
+	if not isinstance(conf["api"]["lines"], list):
+		raise ValueError("Config entry api.lines must be a list")
 if not isinstance(conf["db"]["total_records"], int):
 	raise ValueError("Config entry db.total_records must be an integer")
 if conf["db"]["total_records"] < 1:
 	raise ValueError("Config entry db.total_records must be positive")
 
-conf["db"]["db_path"] = "./data.db" # TODO
-conf["db"]["schema_path"] = "schema.sql" # TODO
+conf["db"]["db_path"] = "./raw/data.db" # TODO
+conf["db"]["schema_path"] = "./schema.sql" # TODO
 conf["api"]["refresh_interval"] *= 60

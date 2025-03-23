@@ -10,6 +10,7 @@ create table Vehicle
 	latitude float,
 	line_name text,
 	timestamp text,
+	start_timestamp text,
 	position_state text,
 	vehicle_type text,
 	last_stop_id text,

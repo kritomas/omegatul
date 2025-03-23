@@ -6,6 +6,8 @@ class Collector:
 		self.headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Omegatul"}
 		self.dbctl = dbctl.DBController()
 		self.vehicle_params = {"routeType": ["bus", "trolleybus"]}
+		if "lines" in config.conf["api"]:
+			self.vehicle_params["routeShortName"] = config.conf["api"]["lines"]
 
 	def processVehicle(self, vehicle):
 		trip_id = vehicle["properties"]["gtfs_trip_id"]
@@ -16,7 +18,7 @@ class Collector:
 				response.raise_for_status()
 				retrying = False
 				trip = response.json()
-				self.dbctl.addVehicle(trip["properties"]["trip"]["gtfs"]["trip_id"], trip["geometry"]["coordinates"][0], trip["geometry"]["coordinates"][1], trip["properties"]["trip"]["origin_route_name"], trip["properties"]["last_position"]["origin_timestamp"], trip["properties"]["last_position"]["state_position"], vehicle["properties"]["route_type"], trip["properties"]["last_position"]["last_stop"]["id"], trip["properties"]["last_position"]["next_stop"]["id"], trip["properties"]["trip"]["gtfs"]["trip_headsign"])
+				self.dbctl.addVehicle(trip["properties"]["trip"]["gtfs"]["trip_id"], trip["geometry"]["coordinates"][0], trip["geometry"]["coordinates"][1], trip["properties"]["trip"]["origin_route_name"], trip["properties"]["last_position"]["origin_timestamp"], trip["properties"]["trip"]["start_timestamp"], trip["properties"]["last_position"]["state_position"], vehicle["properties"]["route_type"], trip["properties"]["last_position"]["last_stop"]["id"], trip["properties"]["last_position"]["next_stop"]["id"], trip["properties"]["trip"]["gtfs"]["trip_headsign"])
 			except requests.HTTPError as error:
 				if error.response.status_code == 429: # 401=Bad Token, 429=Rate Limit
 					time.sleep(1)
