@@ -8,7 +8,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 import config
 
 with sqlite3.connect(config.conf["db"]["db_path"]) as conn:
-	data = pd.read_sql("select line_name, direction, unixepoch(start_timestamp) as start_timestamp, (unixepoch(timestamp) - unixepoch(start_timestamp)) as duration, latitude, longitude from Vehicle where position_state in ('at_stop', 'on_track', 'off_track');", conn)
+	data = pd.read_sql("select concat(line_name, '/', direction) as line, unixepoch(start_timestamp) as start_timestamp, (unixepoch(timestamp) - unixepoch(start_timestamp)) as duration, latitude, longitude from Vehicle where position_state in ('at_stop', 'on_track');", conn)
 	print(data.head())
 
 #data_numeric = data.select_dtypes(include=["float64", "int64"])
@@ -17,15 +17,15 @@ with sqlite3.connect(config.conf["db"]["db_path"]) as conn:
 #sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap="viridis")
 #plt.show()
 
-categorical_cols = ["line_name", "direction"]
+categorical_cols = ["line"]
 column_trans = ColumnTransformer([
-   ('ohe', OneHotEncoder(categories='auto'),['line_name', 'direction']),
+   ('ohe', OneHotEncoder(categories='auto'), categorical_cols),
 ], remainder='passthrough')
 
-input_attr = ["line_name", "direction", "start_timestamp", "duration"]
+input_attr = ["line", "start_timestamp", "duration"]
 output_attr = ["latitude", "longitude"]
 
-X_train, X_test, y_train, y_test = train_test_split(data[input_attr], data[output_attr], test_size=0.05)
+X_train, X_test, y_train, y_test = train_test_split(data[input_attr], data[output_attr], test_size=0.25)
 
 model = Pipeline([("trans", column_trans), ("rfr", RandomForestRegressor(n_jobs=-1))])
 model.fit(X_train, y_train)

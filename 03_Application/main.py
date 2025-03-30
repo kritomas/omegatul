@@ -17,6 +17,6 @@ with open("models/model.pickle", "rb") as file:
 	model = pickle.load(file)
 
 
-sample = pd.DataFrame([["154", "Sídliště Libuš", unix_timestamp, 1050]], columns=["line_name", "direction", "start_timestamp", "duration"])
+sample = pd.DataFrame([["154/Strašnická", unix_timestamp, 1050]], columns=["line", "start_timestamp", "duration"])
 
 print(model.predict(sample))
