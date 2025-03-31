@@ -1,10 +1,9 @@
-import requests
+import requests, time
 import config
 
-def fetch(line):
-	line = line.split("/", 1)
+def fetch(number, direction):
 	headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Omegatul"}
-	vehicle_params = {"routeType": ["bus", "trolleybus"], "routeShortName": line[0]}
+	vehicle_params = {"routeType": ["bus", "trolleybus"], "routeShortName": number}
 
 	response = requests.get("https://api.golemio.cz/v2/public/vehiclepositions", headers=headers, params=vehicle_params)
 	response.raise_for_status()
@@ -19,7 +18,8 @@ def fetch(line):
 				response.raise_for_status()
 				retrying = False
 				trip = response.json()
-				if trip["properties"]["trip"]["gtfs"]["trip_headsign"] == line[1]:
+				vehicle["properties"]["gtfs"] = trip
+				if trip["properties"]["trip"]["gtfs"]["trip_headsign"] == direction:
 					result.append(vehicle)
 			except requests.HTTPError as error:
 				if error.response.status_code == 429: # 401=Bad Token, 429=Rate Limit
