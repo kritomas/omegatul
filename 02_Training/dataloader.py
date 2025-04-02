@@ -16,4 +16,6 @@ column_trans = ColumnTransformer([
 input_attr = ["latitude", "longitude", "line", "start_timestamp"]
 output_attr = "duration"
 
-X_train, X_test, y_train, y_test = train_test_split(data[input_attr], data[output_attr], test_size=0.1)
+X = data[input_attr]
+y = data[output_attr]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=config.conf["ml"]["test_size"])
