@@ -4,10 +4,10 @@ import line
 class Interface:
 	def _formatVehicle(self, vehicle):
 		info = ""
-		info += vehicle["properties"]["vehicle_id"] + ": "
-		info += "Currently at " + str(vehicle["geometry"]["coordinates"][0]) + "E " + str(vehicle["geometry"]["coordinates"][1]) + "N, "
-		info += "started at " + vehicle["properties"]["gtfs"]["properties"]["trip"]["start_timestamp"]
-		duration = int(time.mktime(dateutil.parser.parse(vehicle["properties"]["gtfs"]["properties"]["last_position"]["origin_timestamp"]).timetuple())) -int(time.mktime(dateutil.parser.parse(vehicle["properties"]["gtfs"]["properties"]["trip"]["start_timestamp"]).timetuple()))
+		info += vehicle.id + ": "
+		info += "Currently at " + str(vehicle.coordinate_e) + "E " + str(vehicle.coordinate_n) + "N, "
+		info += "started at " + vehicle.start_timestamp
+		duration = int(time.mktime(dateutil.parser.parse(vehicle.timestamp).timetuple())) -int(time.mktime(dateutil.parser.parse(vehicle.start_timestamp).timetuple()))
 		duration_minutes = int(duration / 60)
 		duration_seconds = duration % 60
 		if duration > 0:
