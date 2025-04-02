@@ -1,5 +1,5 @@
 import time, dateutil
-import line
+import line, stop
 
 class Interface:
 	def _formatVehicle(self, vehicle):
@@ -14,6 +14,8 @@ class Interface:
 			info += " (" + str(duration_minutes) + "min " + str(duration_seconds) + "s into its journey)"
 		else:
 			info += " (not on track yet)"
+		if vehicle.next_stop != None:
+			info += ", headed for " + stop.lookup_id2name[vehicle.next_stop]
 		return info
 
 	def exit(self):
