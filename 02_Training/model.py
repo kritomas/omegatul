@@ -1,41 +1,28 @@
-import sqlite3, pickle, pandas as pd, matplotlib.pyplot as plt, seaborn as sns
-from sklearn.model_selection import train_test_split
+import pickle
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-import config
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor, ExtraTreesRegressor, BaggingRegressor
+from sklearn.tree import DecisionTreeRegressor, ExtraTreeRegressor
+from sklearn.metrics import mean_absolute_error, root_mean_squared_error
+import dataloader
 
-with sqlite3.connect(config.conf["db"]["db_path"]) as conn:
-	data = pd.read_sql("select concat(line_name, '/', direction) as line, unixepoch(start_timestamp) as start_timestamp, (unixepoch(timestamp) - unixepoch(start_timestamp)) as duration, latitude, longitude from Vehicle where position_state in ('at_stop', 'on_track');", conn)
-	print(data.head())
+def trainModel(model, model_name):
+	model = Pipeline([("trans", dataloader.column_trans), ("model", model)])
+	model.fit(dataloader.X_train, dataloader.y_train)
+	y_pred = model.predict(dataloader.X_test)
+	mse = root_mean_squared_error(dataloader.y_test, y_pred)
+	print(model_name + " mean squared error: " + str(mse))
+	with open("models/ml_" + model_name + ".pickle", "wb") as file:
+		pickle.dump(model, file)
 
-#data_numeric = data.select_dtypes(include=["float64", "int64"])
-#correlation_matrix = data_numeric.corr()
-#plt.figure(figsize=(12, 10))
-#sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap="viridis")
-#plt.show()
+# Linear
+trainModel(LinearRegression(n_jobs=-1), "linear")
 
-categorical_cols = ["line"]
-column_trans = ColumnTransformer([
-   ('ohe', OneHotEncoder(categories='auto'), categorical_cols),
-], remainder='passthrough')
-
-input_attr = ["line", "start_timestamp", "duration"]
-output_attr = ["latitude", "longitude"]
-
-X_train, X_test, y_train, y_test = train_test_split(data[input_attr], data[output_attr], test_size=0.25)
-
-model = Pipeline([("trans", column_trans), ("rfr", RandomForestRegressor(n_jobs=-1))])
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-
-mae = mean_absolute_error(y_test, y_pred)
-mse = mean_squared_error(y_test, y_pred, squared=False)
-
-print(mae)
-print(mse)
-with open("model.pickle", "wb") as file:
-	pickle.dump(model, file)
+# Forest
+trainModel(RandomForestRegressor(n_jobs=-1), "random_forest")
+trainModel(AdaBoostRegressor(), "ada_boost")
+trainModel(GradientBoostingRegressor(), "gradient_boosting")
+trainModel(ExtraTreesRegressor(n_jobs=-1), "extra_trees")
+trainModel(BaggingRegressor(n_jobs=-1), "bagging")
+trainModel(DecisionTreeRegressor(), "decision_tree")
+trainModel(ExtraTreeRegressor(), "extra_tree")
