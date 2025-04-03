@@ -17,7 +17,10 @@ class Predict:
 			raise ValueError("Unknown stop")
 		start_unixtime = vehicle.Vehicle.iso2unix(self.vehicle.start_timestamp)
 		sample = pd.DataFrame([[stop.lookup_id2latitude[id], stop.lookup_id2longitude[id], self.vehicle.line_number + "/" + self.vehicle.direction, start_unixtime]], columns=["latitude", "longitude", "line", "start_timestamp"])
-		duration = int(self.model.predict(sample))
+		try:
+			duration = int(self.model.predict(sample))
+		except ValueError:
+			raise ValueError("Line not present in ML model")
 		duration_minutes = int(duration / 60)
 		duration_seconds = duration % 60
 		arrival = datetime.datetime.fromtimestamp(start_unixtime + duration).astimezone().isoformat()
