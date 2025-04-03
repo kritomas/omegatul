@@ -1,10 +1,10 @@
-import time, dateutil
+import dateutil
 import stop
 
 class Vehicle:
 	@classmethod
 	def iso2unix(cls, timestamp):
-		return time.mktime(dateutil.parser.parse(timestamp).timetuple())
+		return dateutil.parser.parse(timestamp).timestamp()
 
 	def __init__(self, raw):
 		self.raw = raw
@@ -22,7 +22,7 @@ class Vehicle:
 		info += self.id + ": "
 		info += "Currently at " + str(self.longitude) + "E " + str(self.latitude) + "N, "
 		info += "started at " + self.start_timestamp
-		duration = int(Vehicle.iso2unix(self.timestamp)) -int(Vehicle.iso2unix(self.start_timestamp))
+		duration = int(Vehicle.iso2unix(self.timestamp)) - int(Vehicle.iso2unix(self.start_timestamp))
 		duration_minutes = int(duration / 60)
 		duration_seconds = duration % 60
 		if duration > 0:

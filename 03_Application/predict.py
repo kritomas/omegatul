@@ -1,4 +1,4 @@
-import datetime
+import datetime, requests
 import pickle, pandas as pd
 import config, line, vehicle, stop
 
@@ -20,7 +20,7 @@ class Predict:
 		duration = int(self.model.predict(sample))
 		duration_minutes = int(duration / 60)
 		duration_seconds = duration % 60
-		arrival = datetime.datetime.utcfromtimestamp(start_unixtime + duration).isoformat() + "Z" # TODO: Incorrect format
+		arrival = datetime.datetime.fromtimestamp(start_unixtime + duration).astimezone().isoformat()
 		print("The bus will arrive at " + name + " at " + arrival + " (" + str(duration_minutes) + "min " + str(duration_seconds) + "s into its journey)")
 
 	def __init__(self):
