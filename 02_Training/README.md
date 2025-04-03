@@ -2,6 +2,12 @@
 
 Trainer for the ML model.
 
+# Installation
+
+Install dependencies: `python3`
+
+Install Python libraries: `pandas`, `scikit-learn`, `sqlite3`
+
 # Usage
 
 First, place the whole SQLite3 DB created by the crawler inside `data`.

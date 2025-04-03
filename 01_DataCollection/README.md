@@ -2,6 +2,12 @@
 
 Crawler for bus data, collecting from the [Golemio API](https://api.golemio.cz/pid/docs/openapi/). The API has a rate limit of 20 requests per 8 seconds. This data will be placed inside `raw/data.db`.
 
+# Installation
+
+Install dependencies: `python3`
+
+Install Python libraries: `requests`, `sqlite3`
+
 # Configuration
 
 Go to [Golemio Key Management](https://api.golemio.cz/api-keys/), create an account, and an API key. The crawler will not work without one.

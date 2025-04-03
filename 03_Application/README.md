@@ -2,9 +2,17 @@
 
 The application for the actual prediction.
 
-Once again, you need a [Golemio API Key](https://api.golemio.cz/api-keys/).
+# Installation
+
+Install dependencies: `python3`
+
+Install Python libraries: `pandas`, `requests`, `scikit-learn`
 
 # Configuration
+
+Once again, you need a [Golemio API Key](https://api.golemio.cz/api-keys/).
+
+Create file `config.json`, with the following format:
 
 ```json
 {
