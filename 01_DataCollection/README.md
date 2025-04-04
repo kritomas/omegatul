@@ -6,7 +6,7 @@ Crawler for bus data, collecting from the [Golemio API](https://api.golemio.cz/p
 
 Install dependencies: `python3`
 
-Install Python libraries: `requests`, `sqlite3`
+Install Python libraries: `requests`
 
 # Configuration
 

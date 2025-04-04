@@ -6,7 +6,7 @@ Trainer for the ML model.
 
 Install dependencies: `python3`
 
-Install Python libraries: `pandas`, `scikit-learn`, `sqlite3`
+Install Python libraries: `pandas`, `scikit-learn`
 
 # Usage
 
