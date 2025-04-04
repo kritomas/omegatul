@@ -6,7 +6,7 @@ The application for the actual prediction.
 
 Install dependencies: `python3`
 
-Install Python libraries: `pandas`, `requests`, `scikit-learn`
+Install Python libraries: `pandas`, `python-dateutil`, `requests`, `scikit-learn`
 
 # Configuration
 

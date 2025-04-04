@@ -53,6 +53,3 @@ class Interface:
 			except EOFError:
 				print()
 				self.running = False
-
-interface = Interface()
-interface.start()
