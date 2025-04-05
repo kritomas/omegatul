@@ -43,6 +43,8 @@ class Interface:
 
 	def start(self):
 		self.running = True
+		print("Welcome to Pragabus, your no. 1 Prague bus predictor.")
+		print("Enter \"help\" to get started ;)")
 		while self.running:
 			try:
 				cmd = input(": ")
