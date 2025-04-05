@@ -3,7 +3,7 @@ import dbctl, config
 
 class Collector:
 	def __init__(self):
-		self.headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Omegatul"}
+		self.headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Pragabus"}
 		self.dbctl = dbctl.DBController()
 		self.vehicle_params = {"routeType": ["bus", "trolleybus"]}
 		if "lines" in config.conf["api"]:

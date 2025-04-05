@@ -2,6 +2,8 @@
 
 Crawler for bus data, collecting from the [Golemio API](https://api.golemio.cz/pid/docs/openapi/). The API has a rate limit of 20 requests per 8 seconds. This data will be placed inside `raw/data.db`.
 
+Stop information has been downloaded from [Prague's Public Transport Opendata](https://opendata.praha.eu/datasets/https%3A%2F%2Fapi.opendata.praha.eu%2Flod%2Fcatalog%2F9a6a1d8e-45b9-41de-b9ae-0bcec7126876), and placed inside `raw/stops.csv`. Note that this is just for user convenience, and is not used to train the ML model.
+
 # Installation
 
 Install dependencies: `python3`
@@ -10,7 +12,7 @@ Install Python libraries: `requests`
 
 # Configuration
 
-Go to [Golemio Key Management](https://api.golemio.cz/api-keys/), create an account, and an API key. The crawler will not work without one.
+Go to [Golemio Key Management](https://api.golemio.cz/api-keys/), create an account and an API key. The crawler will not work without one.
 
 Next, create file `config.json`, with the following format:
 

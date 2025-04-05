@@ -2,7 +2,7 @@ import requests, time
 import config, vehicle
 
 def fetch(number, direction):
-	headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Omegatul"}
+	headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Pragabus"}
 	vehicle_params = {"routeType": ["bus", "trolleybus"], "routeShortName": number}
 
 	response = requests.get("https://api.golemio.cz/v2/public/vehiclepositions", headers=headers, params=vehicle_params)

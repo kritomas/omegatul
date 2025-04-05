@@ -1,4 +1,4 @@
-# Omegatul
+# Pragabus
 
 An ML model for predicting Prague's bus arrival times.
 
