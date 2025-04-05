@@ -20,7 +20,7 @@ def fetch(number, direction):
 				trip = response.json()
 				raw_vehicle["properties"]["gtfs"] = trip
 				if trip["properties"]["trip"]["gtfs"]["trip_headsign"] == direction:
-					result.append(vehicle.Vehicle(raw_vehicle))
+					result.append(vehicle.Vehicle(raw_vehicle, False))
 			except requests.HTTPError as error:
 				if error.response.status_code == 429: # 401=Bad Token, 429=Rate Limit
 					time.sleep(1)
@@ -38,7 +38,7 @@ def fetch(number, direction):
 
 def fetchOne(vehicle_id):
 	headers = {"X-Access-Token": config.conf["api"]["token"], "User-Agent": "Omegatul"}
-	vehicle_params = {"scopes": ["info"]}
+	vehicle_params = {"scopes": ["info", "stop_times"]}
 
 	response = requests.get(f"https://api.golemio.cz/v2/public/vehiclepositions/{vehicle_id}", headers=headers, params=vehicle_params)
 	response.raise_for_status()
@@ -67,4 +67,4 @@ def fetchOne(vehicle_id):
 			raise
 			retrying = False
 			#print(error)
-	return vehicle.Vehicle(raw_vehicle)
+	return vehicle.Vehicle(raw_vehicle, True)

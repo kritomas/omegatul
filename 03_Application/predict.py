@@ -15,6 +15,8 @@ class Predict:
 			id = stop.lookup_name2id[name]
 		except KeyError:
 			raise ValueError("Unknown stop")
+		if not name in self.vehicle.stops:
+			raise ValueError("This bus does not run through the specified stop")
 		start_unixtime = vehicle.Vehicle.iso2unix(self.vehicle.start_timestamp)
 		sample = pd.DataFrame([[stop.lookup_id2latitude[id], stop.lookup_id2longitude[id], self.vehicle.line_number + "/" + self.vehicle.direction, start_unixtime]], columns=["latitude", "longitude", "line", "start_timestamp"])
 		try:

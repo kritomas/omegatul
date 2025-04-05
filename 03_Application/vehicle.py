@@ -6,7 +6,7 @@ class Vehicle:
 	def iso2unix(cls, timestamp):
 		return dateutil.parser.parse(timestamp).timestamp()
 
-	def __init__(self, raw):
+	def __init__(self, raw, load_stops):
 		self.raw = raw
 		self.id =  raw["properties"]["vehicle_id"]
 		self.longitude = raw["geometry"]["coordinates"][0]
@@ -16,6 +16,10 @@ class Vehicle:
 		self.next_stop = raw["properties"]["gtfs"]["properties"]["last_position"]["next_stop"]["id"]
 		self.line_number = raw["properties"]["gtfs"]["properties"]["trip"]["gtfs"]["route_short_name"]
 		self.direction = raw["properties"]["gtfs"]["properties"]["trip"]["gtfs"]["trip_headsign"]
+		if load_stops:
+			self.stops = set()
+			for s in raw["stop_times"]["features"]:
+				self.stops.add(s["properties"]["stop_name"])
 
 	def __str__(self):
 		info = ""
