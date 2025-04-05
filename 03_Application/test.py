@@ -1,16 +1,16 @@
 import time, pickle
-import vehicle
+import vehicle, config
 import pandas as pd
 
 # Example ISO 8601 timestamp
-iso_timestamp = "2024-03-30T017:00:00Z"
+iso_timestamp = "2024-04-01T016:00:00Z"
 
 # Convert to Unix timestamp
 unix_timestamp = vehicle.Vehicle.iso2unix(iso_timestamp)
 
-print(unix_timestamp)
+#print(unix_timestamp)
 
-with open("models/ml_extra_trees.pickle", "rb") as file:
+with open(config.conf["ml"]["model_path"], "rb") as file:
 	model = pickle.load(file)
 
 
