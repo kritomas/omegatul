@@ -55,3 +55,5 @@ class Interface:
 			except EOFError:
 				print()
 				self.running = False
+			except Exception as error:
+				print("Error:", error)

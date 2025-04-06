@@ -15,7 +15,7 @@ class Predict:
 	def exit(self):
 		self.running = False
 	def help(self):
-		print("exit - Exit")
+		print("exit - Exit predict mode")
 		print("help - This")
 		print("refresh - Reload vehicle from API")
 		print("stop - Predict vehicle's arrival at stop")
@@ -66,3 +66,5 @@ class Predict:
 			except EOFError:
 				print()
 				self.running = False
+			except Exception as error:
+				print("Error:", error)
