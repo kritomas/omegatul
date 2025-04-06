@@ -1,4 +1,27 @@
-import config
+import sys
+
+try:
+	import pandas
+except Exception as error:
+	print("Error: Module `pandas` not installed")
+	sys.exit(-1)
+try:
+	import sklearn
+except Exception as error:
+	print("Error: Module `scikit-learn` not installed")
+	sys.exit(-1)
+try:
+	import tensorflow
+except Exception as error:
+	print("Error: Module `tensorflow` not installed")
+	sys.exit(-1)
+
+try:
+	import config
+except Exception as error:
+	print("Config loading failed:", error)
+	sys.exit(-1)
+
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor, ExtraTreesRegressor, BaggingRegressor
 from sklearn.tree import DecisionTreeRegressor, ExtraTreeRegressor

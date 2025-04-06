@@ -8,7 +8,7 @@ Stop information has been downloaded from [Prague's Public Transport Opendata](h
 
 Install dependencies: `python3`
 
-Install Python libraries: `requests`
+Install Python modules: `requests`
 
 # Configuration
 
