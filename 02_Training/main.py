@@ -8,16 +8,16 @@ from model import trainModel, trainNeurons
 import dataloader
 
 # Linear
-#trainModel(LinearRegression(n_jobs=-1), "linear")
+trainModel(LinearRegression(n_jobs=-1), "linear")
 
 # Forest
-#trainModel(RandomForestRegressor(n_jobs=-1, max_depth=config.conf["ml"]["max_tree_depth"], n_estimators=config.conf["ml"]["tree_count"]), "random_forest")
-#trainModel(AdaBoostRegressor(learning_rate=config.conf["ml"]["learning_rate"]), "ada_boost")
-#trainModel(GradientBoostingRegressor(n_estimators=config.conf["ml"]["gradient_boosts"], max_depth=config.conf["ml"]["max_tree_depth"], learning_rate=config.conf["ml"]["learning_rate"]), "gradient_boosting")
-#trainModel(ExtraTreesRegressor(n_jobs=-1, n_estimators=config.conf["ml"]["tree_count"], max_depth=config.conf["ml"]["max_tree_depth"]), "extra_trees")
-#trainModel(BaggingRegressor(n_jobs=-1, max_samples=0.8, n_estimators=config.conf["ml"]["tree_count"]), "bagging")
-#trainModel(DecisionTreeRegressor(max_depth=config.conf["ml"]["max_tree_depth"]), "decision_tree")
-#trainModel(ExtraTreeRegressor(max_depth=config.conf["ml"]["max_tree_depth"]), "extra_tree")
+trainModel(RandomForestRegressor(n_jobs=-1, max_depth=config.conf["ml"]["max_tree_depth"], n_estimators=config.conf["ml"]["tree_count"]), "random_forest")
+trainModel(AdaBoostRegressor(learning_rate=config.conf["ml"]["learning_rate"]), "ada_boost")
+trainModel(GradientBoostingRegressor(n_estimators=config.conf["ml"]["gradient_boosts"], max_depth=config.conf["ml"]["max_tree_depth"], learning_rate=config.conf["ml"]["learning_rate"]), "gradient_boosting")
+trainModel(ExtraTreesRegressor(n_jobs=-1, n_estimators=config.conf["ml"]["tree_count"], max_depth=config.conf["ml"]["max_tree_depth"]), "extra_trees")
+trainModel(BaggingRegressor(n_jobs=-1, max_samples=config.conf["ml"]["max_samples"], n_estimators=config.conf["ml"]["estimators"]), "bagging")
+trainModel(DecisionTreeRegressor(max_depth=config.conf["ml"]["max_tree_depth"]), "decision_tree")
+trainModel(ExtraTreeRegressor(max_depth=config.conf["ml"]["max_tree_depth"]), "extra_tree")
 
 # Neurons
 neuro = Sequential()
