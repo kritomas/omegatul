@@ -31,7 +31,7 @@ Next, create file `config.json`, with the following format:
 
 # Usage
 
-Just run `python3 main.py`.
+Just run `main.py`.
 
 The crawler will periodically download bus information, as per `schema.sql`. It will do this every `api.refresh_interval` minutes.
 
