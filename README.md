@@ -18,6 +18,8 @@ A list of components making the whole thing tick. See Readme for each individual
 
 # Credits
 
-### Created by kritomas
+## Created by kritomas
+
+With the help of classmates, our principal, ChatGPT, confused frantic googling that happened so mechanically that I forgot about it since then.
 
 Source Code: https://github.com/kritomas/pragabus
