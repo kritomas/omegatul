@@ -40,3 +40,32 @@ Then run `main.py`. The trainer will use the whole CPU (if possible). The result
 # Output
 
 The trainer runs through all the models uncommented in `main.py`, and writes their mean squared error (lower is better), and mse deviation (lower is better / less overfitting).
+
+# The Process
+
+This is the second step in this whole ordeal. We got the database from step one, and cleaned it. The cleaning was straightforward thanks to the wonders of SQL, just run this query:
+
+```sql
+select concat(line_name, '/', direction) as line, unixepoch(start_timestamp) as start_timestamp, (unixepoch(timestamp) - unixepoch(start_timestamp)) as duration, latitude, longitude from Vehicle where position_state in ('at_stop', 'on_track');
+```
+
+The output of this query is then passed into the training cinemagics. The resulting model we got by fiddling with the numbers a while, until we landed at this config:
+
+```json
+{
+	"ml":
+	{
+		"test_size": 0.25,
+		"max_tree_depth": 15,
+		"tree_count": 15,
+		"estimators": 15,
+		"max_samples": 0.8,
+		"epochs": 80,
+		"batch_size": 64,
+		"density": 64,
+		"hidden_layers": 10
+	}
+}
+```
+
+The best results we got were with the Bagging Regression, with a mse of around 320 and mse deviation of around 32.

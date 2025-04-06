@@ -19,7 +19,7 @@ Next, create file `config.json`, with the following format:
 ```json
 {
 	"api": {
-		"token": "[API Token]",
+		"token": "[Golemio API key]",
 		"refresh_interval": [Delay between queries, in minutes],
 		"lines": [List of lines to fetch]
 	},
@@ -40,3 +40,7 @@ The crawler will periodically download bus information, as per `schema.sql`. It 
 The crawler will stop once the DB reaches `db.total_records` records.
 
 **The crawler runs in realtime, we advise running it nonstop for weeks straight.**
+
+# The Process
+
+This is the first step in this whole ordeal. We crawl bus data from [Golemio](https://api.golemio.cz/pid/docs/openapi/#/%F0%9F%95%90%20Public%20Vehicle%20Positions%20(v2)/get_v2_public_vehiclepositions), and place it inside a SQLite3 database. The database is generated as per `schema.sql`. Also, we downloaded a csv concerning all the stops (not used to train the models).
