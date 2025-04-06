@@ -3,12 +3,25 @@ import pickle, pandas as pd
 import config, line, vehicle, stop
 
 class Predict:
+	def _refresh(self, id):
+		try:
+			self.vehicle = line.fetchOne(id)
+		except requests.HTTPError as error:
+			if error.response.status_code == 404:
+				raise ValueError("Unknown vehicle")
+			else:
+				raise
+
 	def exit(self):
 		self.running = False
 	def help(self):
 		print("exit - Exit")
 		print("help - This")
+		print("refresh - Reload vehicle from API")
 		print("stop - Predict vehicle's arrival at stop")
+	def refresh(self):
+		self._refresh(self.vehicle.id)
+		print(self.vehicle)
 	def stop(self):
 		name = input("Enter stop name: ")
 		try:
@@ -34,18 +47,13 @@ class Predict:
 		self.commands = {
 			"exit": self.exit,
 			"help": self.help,
+			"refresh": self.refresh,
 			"stop": self.stop
 		}
 
 	def start(self):
 		vehicle_id = input("Enter vehicle ID: ")
-		try:
-			self.vehicle = line.fetchOne(vehicle_id)
-		except requests.HTTPError as error:
-			if error.response.status_code == 404:
-				raise ValueError("Unknown vehicle")
-			else:
-				raise
+		self._refresh(vehicle_id)
 		print(self.vehicle)
 		self.running = True
 		while self.running:
