@@ -8,6 +8,8 @@ Install dependencies: `python3`
 
 Install Python modules: `pandas`, `scikit-learn`, `tensorflow`
 
+Grapher modules (optional): `matplotlib`
+
 # Configuration
 
 Create file `config.json`, with the following format:
@@ -36,6 +38,8 @@ Create file `config.json`, with the following format:
 First, place the whole SQLite3 DB created by the crawler inside `data`.
 
 Then run `main.py`. The trainer will use the whole CPU (if possible). The resulting models will be pickled and placed inside `models`.
+
+For route graphs, run `graph.py`.
 
 # Output
 
